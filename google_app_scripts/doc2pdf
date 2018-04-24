@@ -1,0 +1,20 @@
+function convertPDF() {
+  files = DriveApp.getFoldersByName('E&ICT').next().getFoldersByName('CIT').next().getFilesByType('application/vnd.google-apps.presentation');
+  var toFolderID = DriveApp.getFoldersByName('testPdf').next().getId();
+  while (files.hasNext()) {
+    var file = files.next()
+    var fileName = file.getName();
+    var export = file.getAs('application/pdf');
+    file.setName(fileName + ".pdf")
+    var pdf = DriveApp.createFile(export);
+    var pdfID = pdf.getId();
+    moveFileId(pdfID, toFolderID);
+  }
+}
+function moveFileId(fileId, toFolderId) {
+   var file = DriveApp.getFileById(fileId);
+   var source_folder = DriveApp.getFileById(fileId).getParents().next();
+   var folder = DriveApp.getFolderById(toFolderId)
+   folder.addFile(file);
+   source_folder.removeFile(file);
+}
