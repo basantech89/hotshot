@@ -1,0 +1,1 @@
+dpkg -S /path/to/file   --  to know which package the file belongs to in debian

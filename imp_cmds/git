@@ -1,0 +1,57 @@
+## GIT Commands ##
+
+# Config
+# Priority Level => Local > Global > System
+git config --global user.name "tech89"
+git config --global user.email "your@emailaddress.com"
+git config --local user.name Anonymous
+git config --local user.email username@domain.com
+
+# Init
+# If you already have a project directory and you want to control it with source control system, in the project directory, give following commands to make it a repository
+git init	# to make your PWD, a new repository
+# If you want to get the project under source control before you get started, shoot below command
+git init projectDirectory
+
+# Commit
+git status
+git add object_name # Prepairing object, adding it to staging area to commit it
+git add -A
+git commit -m "To commit and give a message to describe your commit"
+
+# Diff
+gid diff	# Will tell you how your working tree differs from your staging area
+git diff --staged	# To know how the staging area differs from the most recent commit in history
+git diff HEAD	# Compares your working tree to the HEAD commit (the most recent commit in history)
+git diff --color-words	# show you the only words that changed in colors
+git diff --word-diff
+git diff --stat	# suppress all the patch output and just tell you the files that have changed
+
+# Log
+git log	# to look at all the past commits, will show you commit ref, author, timestamp and the commit message
+git log --oneline	# will show you a quick summary of commit in just one line including a shorter version of commit ref and the message
+git log --stat	# to look at all the commits including the files that were involved in each commit and their relative changes listed out with plus and minus signs
+git log --patch	# addition to above stat, to look at what content actually chnaged between each commit
+git log --patch --online
+git log --graph	# graph the log or get an ascii art demonstration of what our commit structure looks like
+git log --graph --all --decorate --oneline
+
+# Remove
+git rm fileName	# removes the file from file system and at the same time, stage that. If you do a simple rm fileName the file will be deleted but will not be staged, so now to stage it, do git rm fileName
+git add -u .	# to remove many files, first do a simple rm and after that to stage all those deleted files. Recursive in nature
+git rm --cached fileName	# not to track the file anymore
+
+# Move
+git mv header.jpg source/header.jpg	# Move the file and stage the changes at the same time
+# mv prod.log production.log	# Now git status will say that prod.log is deleted and a new file production.log is created, to fix this delete the old file with git rm and then add the new file with git add, git interprets it as move
+git add -A .	# Move the files as usually and then using the A switch with git add, it will be interpreted as move by git
+git log --stat -- tutorials/intermediate/lesson6.html	# will show you all the commits containing that file
+git log --stat -M --follow -- tutorials/intermediate/lesson6.html	# will tell log to show the entire history of a file
+
+
+# If you have made some changes accidently, to return back to last commit, you can do
+git checkout -- .
+git clone https://github.com/tech89/reponame.git
+git remote add origin https://basantech89@bitbucket.org/basantech89/codeinside.git	# To add repo from the server
+git remote set-url origin https://basantech89@bitbucket.org/basantech89/codeinside.git	# To set the url for push and pull
+git push origin master
