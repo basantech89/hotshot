@@ -1,0 +1,30 @@
+--> ls # Listing Files
+
+ls -lt					# list files in order of last modification date (newest first)
+ls -lt | sed 10 q			# show first 10 lines of output
+ls -ltr					# oldest first (reverse the output of ls -lt)
+ls -X					# group files by extension
+ls -v					# sort version numbers in file names
+ls -lR | less				# list files recursively
+ls -lXR | vim -				# save output of ls -lXR as an inventory file or as a README, :write command in vim will save the file
+
+--> find # Finding Files
+
+find . | sort				# get a complete list of files including relative paths with no decoration
+find . -ls | sort -k11,11		# ls -l styling for above output, sorted by the 11th column of output (filenames)
+find . -name '*.*x'			# find files with names matching a shell style pattern, -iname for case-insensitive
+find . -path '*test*'			# find files with paths matching a shell style pattern, -ipath for case-insensitive
+find . -mtime -5			# find files edited within last 5 days
+find . -mtime +5			# find files edited before 5 days ago
+find . -mtime -5 -ls | sort -k9 -r	# -k switch to sort the output of find (oldest first by default), -r switch to reverse the output
+find . -newer server.c			# find files more recently modified than server.c
+find . -type d				# find directories
+find . -type f				# find files
+find . -type l				# find symbolic links
+find . -type f -delete			# delete matching files
+find . -name "*.sh" -exec bash {} \;	# -exec switch is used to run a command on each of matched file, 
+					  replacing {} with appropriate file name and terminated by \;
+find . -name '*.sh' -exec vim {} +	# use + character instead of \; if you want all of the result on one invocation of command,
+					  use :n in vim to go to next file, :N for previous file, :buffers to list all the files being edited,
+					  :buffer 1 to go to 1st file, :buffer 2 to go to 2nd file, to open a new file file3 type :e file3 in vim,
+					  to edit the file3, type command :buffer file3

@@ -1,0 +1,18 @@
+:write						# name the file 
+vim file1 file2					# open multiples files in vim at once
+			  			  use :n in vim to go to next file, :N for previous file 
+						  :buffers to list all the files being edited
+			  			  :buffer 1 to go to 1st file, :buffer 2 to go to 2nd file 
+						  to open/create a new file file3 type :e file3 in vim
+			  			  to edit this file file3, type command :buffer buffer-no
+:r file1					# copy entire content of file1 into file2
+						  open file2
+						  move the cursor to the place where you want to copy the content of file1
+						  type :r file1 in command mode in vim, r means read
+vim -o file1 fle2				# open multiple files in horizontal windows
+						  CTRL + w + w	-	switch b/w windows
+						  CTRL + w + k	-	top window
+						  CTRL + w + j	-	bottom window
+vim -O file1 file2				# open multiple files in vertical windows
+						  CTRL + w + l	-	left window
+						  CTRL + w + r	-	right window
