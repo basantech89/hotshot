@@ -1,0 +1,10 @@
+tmux new -s dev		# Start a new tmux session named dev
+			  Divide the terminal into as many panes as you want with CTRL + b + " to split horizontally
+			  CTRL + b + % to split vertically
+			  Switch b/w panes with CTRL + b + left/up/down/right arrow key
+			  Resize a pane by holding CTRL + b while pressing one of keyboard arrows to move boundaries
+			  CTRL + b + t - see the current time in pane
+			  CTRL + b + x - close the pane
+			  CTRL + b + d - detach from current session and return to regular terminal
+tmux attach -t dev	# reattach to the session named dev
+tmux switch -t dev	# Switch to session named dev

@@ -10,9 +10,17 @@ vim file1 file2					# open multiples files in vim at once
 						  move the cursor to the place where you want to copy the content of file1
 						  type :r file1 in command mode in vim, r means read
 vim -o file1 fle2				# open multiple files in horizontal windows
-						  CTRL + w + w	-	switch b/w windows
-						  CTRL + w + k	-	top window
-						  CTRL + w + j	-	bottom window
+						  CTRL + w + w		-	switch b/w windows
+						  CTRL + w + k		-	top window
+						  CTRL + w + j		-	bottom window
 vim -O file1 file2				# open multiple files in vertical windows
-						  CTRL + w + l	-	left window
-						  CTRL + w + r	-	right window
+						  CTRL + w + l		-	left window
+						  CTRL + w + r		-	right window
+vim -p file1 file2				# open multiple files in tabs
+						  :tabedit file3	-	open a new tab and let you edit file3
+						  to switch b/w tabs, type gt or gT in normal mode, use 2gt to move to 2nd tab
+						  :tabfirst or :tablast	-	first or last tab
+						  :tabn or :tabp	-	next tab or previous tab
+						  :tabs			-	list all the tabs
+						  :tabclose		-	close a single tab
+						  :tabonly		-	close all other tabs except current one

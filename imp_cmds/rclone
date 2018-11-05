@@ -1,1 +1,0 @@
-sudo rclone --vfs-cache-mode full mount --daemon remote-drive-name: /path/to/mountpoint/
