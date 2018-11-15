@@ -1,0 +1,97 @@
+function myFunction() {
+  var form = FormApp.create('Day 1 Computer Basics Quiz');
+  form.setTitle('Quiz on Computer Basics')
+      .setDescription('Only one option is correct for all the questions')
+      .setCollectEmail(true)
+      .setIsQuiz(true)
+      .setLimitOneResponsePerUser(true)
+      .setShuffleQuestions(true)
+      .setAllowResponseEdits(true)
+      .setProgressBar(true)
+      .setPublishingSummary(true)
+      .requiresLogin();     
+var item = form.addCheckboxItem();
+	item.setTitle("Storage Devices are").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Output device"),
+item.createChoice("Input device"),
+item.createChoice("Neither Input nor Output"),
+item.createChoice("Both a and b ")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("Computer is beneficial to us because").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("It is fast"),
+item.createChoice("It is intelligent"),
+item.createChoice("It can work automatically"),
+item.createChoice("Both a and c")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("Which of following extension(s) an image file can have").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("bmp"),
+item.createChoice("jpg"),
+item.createChoice("png"),
+item.createChoice("All Above")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("SSD is").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Faster than HDD"),
+item.createChoice("Use a mechanical device"),
+item.createChoice("Slower than HDD"),
+item.createChoice("None of Above")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("DDR2 and DDR3 are").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Usually as per user preference"),
+item.createChoice("They are compatible"),
+item.createChoice("They are not compatible"),
+item.createChoice("Both can be used with any Processors.")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("RAM stands for").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Random Acknowledge Memory"),
+item.createChoice("Random Access Memory"),
+item.createChoice("Root Access Memory"),
+item.createChoice("Root Acknowledge Memory")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("Example(s) of input device to a smartphone").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Fingerprint Scanner"),
+item.createChoice("Touch screen"),
+item.createChoice("Phone display"),
+item.createChoice("Both a and b")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("Example(s) of output device to a smartphone").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Touch Screen"),
+item.createChoice("Speakers"),
+item.createChoice("Retina Scanner"),
+item.createChoice("Both a and b")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("HTML stands for ?").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Hyper Text Makeup Language"),
+item.createChoice("Hyper Test Markup Language"),
+item.createChoice("Hyper Text Markup Language"),
+item.createChoice("Hyper Tension Markup Language")
+	]);
+var item = form.addCheckboxItem();
+	item.setTitle("Which of following is not a web browser ?").setPoints(1).setRequired(true);
+item.setChoices([
+item.createChoice("Windows XP"),
+item.createChoice("Google Chrome"),
+item.createChoice("Firefox"),
+item.createChoice("Opera Mini")
+	]);
+  
+  Logger.log('Published URL: ' + form.getPublishedUrl());
+  Logger.log('Editor URL: ' + form.getEditUrl());
+}
+

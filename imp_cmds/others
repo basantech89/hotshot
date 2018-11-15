@@ -1,0 +1,1 @@
+compton --backend glx --unredir-if-possible --vsync opengl-swc
