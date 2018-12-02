@@ -1,0 +1,23 @@
+# find the line with word googleapis and delete it
+sed -i '/googleapis/d' cascading2.html
+
+# insert the line <link href...> with a tab, then append a new line with a tab <link...> after a line that have string "style.css"
+sed -i '/googleapis/d' cascading2.html && sed -i '/style.css/a \\t<link href="https:\/\/fonts.googleapis.com\/css?family=Montserrat|Nunito|Bree+Serif|Roboto|Roboto+Slab|Roboto+Mono|KoHo|Mali|Muli|Signika" rel="stylesheet"> \n\t <link rel="stylesheet" href="../css/style-extra.css>"' cascading2.html
+
+# delete the trailing space from the line having the word style-extra
+sed -i '/style-extra/ s/ //' cascading2.html 
+
+# combining all above command in a single command
+sed -i '/googleapis/d' cascading2.html && sed -i '/style.css/a \\t<link href="https:\/\/fonts.googleapis.com\/css?family=Chakra+Petch|Montserrat|Nunito|Mali|Muli|Signika" rel="stylesheet"> \n\t <link rel="stylesheet" href="../css/style-extra.css>"' cascading2.html && sed -i '/style-extra/ s/ //' cascading2.html 
+
+# find all the html files and then run sed on those files
+find . -name "*.html" -exec sed -i '/googleapis/d' {} \; -exec sed -i '/style.css/a \\t<link href="https:\/\/fonts.googleapis.com\/css?family=Chakra+Petch|Montserrat|Nunito|Mali|Muli|Signika|Comfortaa" rel="stylesheet"> \n\t <link rel="stylesheet" href="../css/style-extra.css>"' {} \; -exec sed -i '/style-extra/ s/ //' {} \;
+
+# Simpler version of above, this should be widely used
+find . -name "*.html" -exec sed -i '/googleapis/d' {} \; -exec sed -i '/style.css/a \\t<link href="https:\/\/fonts.googleapis.com\/css?family=Chakra+Petch|Montserrat|Nunito|Mali|Muli|Signika|Comfortaa" rel="stylesheet">' {} \;
+
+# replce last character with nothing of a line that have string "style-extra"
+sed -i '/style-extra/ s/.$//' basics.html
+
+# interchange " symbol with > symbol
+find . -name "*.html" -exec sed -i '/style-extra/ s/>/"/' {} \; -exec sed -i '/style-extra/ s/.$/>/' {} \;
