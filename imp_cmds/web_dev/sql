@@ -1,0 +1,151 @@
+# Web Developement
+# SQL
+
+Errors and their resolution:
+# error: Warning in ./libraries/sql.lib.php#613 count(): Parameter must be an array or an object that implements Countable
+sudo sed -i "s/|\s*\((count(\$analyzed_sql_results\['select_expr'\]\)/| (\1)/g" /usr/share/phpmyadmin/libraries/sql.lib.php
+
+error: #1044 - Access denied for user 'phpmyadmin'@'localhost' to database 'People'
+GRANT ALL PRIVILEGES ON *.* TO 'phpmyadmin'@'localhost';            -- grant all the privileges to a user on all the databases
+FLUSH PRIVILEGES;                                                   -- apply privileges
+
+show databases;
+CREATE DATABASE People DEFAULT CHARACTER SET utf8;                  -- Create a new database with the character set utf8 as default
+USE People;
+CREATE TABLE Users (
+    name VARCHAR(128),  --  can be upto 128 characters long
+    email VARCHAR(128)
+);
+DESCRIBE Users;                                                      -- Looking at the Users table
+INSERT INTO Users (name, email) VALUES ('Sally', 'sally@umich.edu'); -- Inserting data in the Users table
+DELETE FROM Users WHERE email="ted@umich.edu";                       -- Deleting from the table
+UPDATE Users SET name = "Charles" WHERE email = "csev@umich.edu";    -- Updating the table
+SELECT * FROM Users;
+SELECT * FROM Users WHERE email = "csev@umich.edu";
+SELECT * FROM Users ORDER BY email;
+SELECT * FROM Users WHERE name LIKE '%e%';                            -- Show me all the rows in which name column has "e" in it
+SELECT * FROM Users ORDER BY email DESC LIMIT 2;
+SELECT * FROM Users ORDER BY email DESC LIMIT 1,2;
+SELECT COUNT(*) FROM Users;
+SELECT COUNT(*) FROM Users WHERE email = 'csev@umich.edu';
+DROP TABLE Users;
+CREATE TABLE Users (
+	user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,   -- Create an integer variable user_id, unsigned means positive and not null means Rquired and                                                               AUTO_INCREMENT means pl supply it if I don't like 1, 2, 3..
+    name VARCHAR(128),
+    email VARCHAR(128),
+    PRIMARY KEY(user_id),   -- means user_id column will be used as primary key, and we will use it a lot and you better be able to look it up fast
+    INDEX(email)            -- means we r saying that we r going to actually look up with WHERE clauses using email column a lot (string based                                        sorting, prefix lookup kind of index)
+);
+INSERT INTO Users (name, email) VALUES ('Sally', 'sally@umich.edu');
+INSERT INTO Users (name, email) VALUES ('Caitlin', 'cait@umich.edu');
+
+# If you forgot to add the INDEX(email) (causing  your database to run slow), you can later apply this cmd (BTREEs are better for strings, Hashes are better for other things)
+ALTER TABLE Users ADD INDEX ( email )
+ALTER TABLE Users ADD INDEX ( email ) USING BTREE
+
+# Creating a new database Music
+CREATE DATABASE Music DEFAULT CHARACTER SET utf8;
+USE Music;
+
+CREATE TABLE Artist (
+	artist_id INTEGER NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    PRIMARY KEY(artist_id)
+) ENGINE = INNODB;
+
+CREATE TABLE Album (
+	album_id INTEGER NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255),
+    artist_id INTEGER,
+    
+    PRIMARY KEY(album_id),
+    INDEX USING BTREE (title),
+    
+    CONSTRAINT FOREIGN KEY (artist_id)  # informing to mysql that the foreign key ( artist_id) in Album table belongs to the primary key (artist_id)                                            in Artist table
+    	REFERENCES Artist (artist_id)
+    	ON DELETE CASCADE ON UPDATE CASCADE # If I delete an artist from the Artist table, Adjust child rows by removing or updating to maintain                                                    consistency
+) ENGINE = INNODB;
+
+CREATE TABLE Genre (
+	genre_id INTEGER NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    PRIMARY KEY(genre_id)
+) ENGINE INNODB;
+
+CREATE TABLE Track (
+    track_id INTEGER NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255),
+    len INTEGER,
+    rating INTEGER,
+    count INTEGER,
+    album_id INTEGER,
+    genre_id INTEGER,
+    
+    PRIMARY KEY(track_id),
+    INDEX USING BTREE (title),
+    
+    CONSTRAINT FOREIGN KEY (album_id) REFERENCES Album (album_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FOREIGN KEY (genre_id) REFERENCES Genre (genre_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = INNODB;
+
+
+INSERT INTO Artist (name) VALUES ('Led Zepplin');
+INSERT INTO Artist (name) VALUES ('AC/DC');
+
+INSERT INTO Genre (name) VALUES ('ROCK');
+INSERT INTO Genre (name) VALUES ('Metal');
+
+INSERT INTO Track (title, rating, len, count, album_id, genre_id)
+	VALUES ('Black Dog', 5, 297, 0, 2, 1);
+INSERT INTO Track (title, rating, len, count, album_id, genre_id)
+	VALUES ('Stairway', 5, 482, 0, 2, 1);
+INSERT INTO Track (title, rating, len, count, album_id, genre_id)
+	VALUES ('About to Rock', 5, 313, 0, 1, 2);
+INSERT INTO Track (title, rating, len, count, album_id, genre_id)
+	VALUES ('Who Made Who', 5, 207, 0, 1, 2);
+
+
+# Join Statements on Music Database
+SELECT Album.title, Artist.name FROM Album JOIN Artist ON Album.artist_id = Artist.artist_id;   # showing which album made by whom
+SELECT Track.title, Track.genre_id, Genre.genre_id, Genre.name FROM Track JOIN Genre;
+SELECT Track.title, Genre.name FROM Track JOIN Genre ON Track.genre_id = Genre.genre_id;    # showing the genre for                                                                                                     each of title in the track table
+SELECT Track.title, Artist.name, Album.title, Genre.name FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.genre_id = Genre.genre_id AND Track.album_id = Album.album_id AND Album.artist_id = Artist.artist_id;    # showing Track title, artist name, album title and genre fot every title in the                                                                        track table
+
+# After deleting a tablw row, if you want to reset the primary_key auto_increment number
+# number is the highest number from which you want the numbering to be fixed
+ALTER TABLE `table` AUTO_INCREMENT = number;
+
+# All of the genres for a particular artist
+select distinct Artist.name, Genre.name from Artist join Genre join Track join Album on Genre.genre_id = Track.genre_id and Album.album_id = Track.album_id and Album.artist_id = Artist.artist_id where Artist.name = "Atif Aslam";
+
+# A query using GROUP BY to show the number of tracks an Artist has in each Genre
+select Artist.name, count(Artist.name ), Genre.name from Track join Genre join Album join Artist on Genre.genre_id = Track.genre_id and Album.album_id = Track.album_id and Album.artist_id = Artist.artist_id where Artist.name = "Arjit Singh" group by Genre.name;
+
+# Many to Many Relationship
+# A new database for different multiple Users in different multiple Courses
+CREATE DATABASE roster;
+
+CREATE TABLE User (
+user_id INTEGER NOT NULL AUTO_INCREMENT KEY,
+name VARCHAR(128) UNIQUE
+) ENGINE=InnoDB CHARACTER SET=utf8;
+
+CREATE TABLE Course (
+course_id INTEGER NOT NULL AUTO_INCREMENT KEY,
+title VARCHAR(128) UNIQUE
+) ENGINE=InnoDB CHARACTER SET=utf8;
+
+# ManyToMany/Connector/Joint Table
+CREATE TABLE Member (   
+user_id INTEGER,
+course_id INTEGER,
+role INTEGER,
+CONSTRAINT FOREIGN KEY (user_id) REFERENCES User (user_id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT FOREIGN KEY (course_id) REFERENCES Course (course_id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (user_id, course_id)    # saying that the combination of course_id and user_id is unique
+) ENGINE=InnoDB CHARACTER SET=utf8;
+  

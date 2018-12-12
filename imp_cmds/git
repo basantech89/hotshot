@@ -6,6 +6,7 @@ git config --global user.name "tech89"
 git config --global user.email "your@emailaddress.com"
 git config --local user.name Anonymous
 git config --local user.email username@domain.com
+git config --list
 
 # Init
 # If you already have a project directory and you want to control it with source control system, in the project directory, give following commands to make it a repository
@@ -17,6 +18,7 @@ git init projectDirectory
 git status
 git add object_name # Prepairing object, adding it to staging area to commit it
 git add -A
+git add .   # add all the files in current directory to staging area
 git commit -m "To commit and give a message to describe your commit"
 
 # Diff
@@ -48,10 +50,16 @@ git add -A .	# Move the files as usually and then using the A switch with git ad
 git log --stat -- tutorials/intermediate/lesson6.html	# will show you all the commits containing that file
 git log --stat -M --follow -- tutorials/intermediate/lesson6.html	# will tell log to show the entire history of a file
 
-
+# Checkout
 # If you have made some changes accidently, to return back to last commit, you can do
 git checkout -- .
+git checkout -- <file>  # roll back <file> to it's last commit
+# If you want to roll back to a previous version of a file from an older commit
+git checkout <commit> <file>
+
+git reset <file>   # unstage a staged <file> but leave the working directory unchanged
+git reset           # reset the staging area back to last commit without disturbing the working directory 
 git clone https://github.com/tech89/reponame.git
-git remote add origin https://basantech89@bitbucket.org/basantech89/codeinside.git	# To add repo from the server
-git remote set-url origin https://basantech89@bitbucket.org/basantech89/codeinside.git	# To set the url for push and pull
+git remote add origin https://URL-of-repository	# To add repo from the server
+git remote set-url origin https://URL-of-repository	# To set the url for push and pull
 git push origin master
