@@ -1,0 +1,8 @@
+mongod --dbpath /path/to/database/data --bind_ip 127.0.0.1
+mongo
+db.help()
+db
+use conFusion // using conFusion database
+db.getCollectionNames()
+db.users.find().pretty()
+db.users.update({"username": "admin"}, {$set: {"admin": true}})

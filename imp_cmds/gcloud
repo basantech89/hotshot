@@ -1,0 +1,18 @@
+# list all the zones whose names start with asia-south1
+gcloud compute zones list | grep asia-south1
+
+# set the zone to asia-south1-a for newly created vms
+gcloud config set compute/zone asia-south1-a
+
+# create a new vm
+gcloud compute instances create "my-vm-2" --machine-type "n1-standard-1" --image-project "debian-cloud" --image "debian-9-stretch-v20170918" --subnet "default"
+
+# In Cloud Shell, the DEVSHELL_PROJECT_ID environment variable contains your project ID. Enter this command to make a bucket named after your project ID, location can be USA, ASIA or EU
+export LOCATION=ASIA
+gsutil mb -l $LOCATION gs://$DEVSHELL_PROJECT_ID
+
+# Copying a banner image from a publicly accessible Cloud Storage location to our newly created bucket
+gsutil cp gs://cloud-training/gcpfci/my-excellent-blog.png gs://$DEVSHELL_PROJECT_ID/my-excellent-blog.png
+
+# Modify the Access Control List of the object you just created so that it is readable by everyone:
+gsutil acl ch -u allUsers:R gs://$DEVSHELL_PROJECT_ID/my-excellent-blog.png

@@ -13,3 +13,6 @@ amixer sset 'Master' 50%	# set to 50 %
 amixer -q sset Master 3%+	# increase by 3 %
 amixer -q sset Master 3%-	# decrease by 3 %
 amixer -q sset Master toggle	# mute / unmute
+
+# check terminal
+echo $TERM

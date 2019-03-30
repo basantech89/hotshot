@@ -1,0 +1,10 @@
+--> Redux
+// Redux Store = Dispatch + Reducer + State
+// Action -> View -> Store -> Action
+// actions are handled appropriately using reducers in redux store
+// any changes made to store would be done through pure functions (reducers)
+// reducers take previous state and action and return next state (doesn't mutate previous state)
+// any state changes will be then reflected to the views and the views may rerender based on this
+// Redux data flow is unidirectional
+// Redux Middleware(example - redux thunk) allows you to write action creators that returns a function instead of the action
+

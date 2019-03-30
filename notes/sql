@@ -12,7 +12,7 @@ FLUSH PRIVILEGES;                                                   -- apply pri
 show databases;
 CREATE DATABASE People DEFAULT CHARACTER SET utf8;                  -- Create a new database with the character set utf8 as default
 USE People;
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS Users (
     name VARCHAR(128),  --  can be upto 128 characters long
     email VARCHAR(128)
 );
@@ -148,4 +148,13 @@ CONSTRAINT FOREIGN KEY (course_id) REFERENCES Course (course_id)
 ON DELETE CASCADE ON UPDATE CASCADE,
 PRIMARY KEY (user_id, course_id)    # saying that the combination of course_id and user_id is unique
 ) ENGINE=InnoDB CHARACTER SET=utf8;
-  
+
+
+# ADD a column to previously existing table
+ALTER TABLE table
+ADD [COLUMN] column_name_1 column_1_definition [FIRST|AFTER existing_column],
+ADD [COLUMN] column_name_2 column_2_definition [FIRST|AFTER existing_column],
+...;
+
+ALTER TABLE vendors
+ADD COLUMN phone VARCHAR(15) AFTER name;
