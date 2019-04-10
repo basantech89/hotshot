@@ -16,3 +16,27 @@ gsutil cp gs://cloud-training/gcpfci/my-excellent-blog.png gs://$DEVSHELL_PROJEC
 
 # Modify the Access Control List of the object you just created so that it is readable by everyone:
 gsutil acl ch -u allUsers:R gs://$DEVSHELL_PROJECT_ID/my-excellent-blog.png
+
+# Launch a Kubernetes cluster in a zone with 2 nodes
+export MY_ZONE=us-central1-f
+gcloud container clusters create webfrontend --zone $MY_ZONE --num-nodes 2
+kubectl version
+kubectl run nginx --image=nginx:1.10.0 # create a kuberentes deployment called nginx consist of a single pod, all containers run in pods in kubernetes
+kubectl get pods
+kubectl expose deployment nginx --port 80 --type LoadBalancer  # expose the created deployment so client from outside can access it
+kubectl get services
+kubectl scale deployment nginx --replicas 3 # scale the deployment for load balancing
+kubectl get pods  # there will be 3 pods now
+
+# Deploy an application to app engine service
+git clone https://github.com/GoogleCloudPlatform/appengine-guestbook-python.git # a small python app that would be deployed to google cloud app engine
+dev_appserver.py ./app.yaml     # running the app locally (in google cloud shell)
+gcloud app deploy ./index.yaml ./app.yaml  # deploying the app to google cloud app engine 
+
+# Automate deplyment with deployment manager
+gcloud deployment-manager deployments create my-first-depl --config mydeploy.yaml
+gcloud deployment-manager deployments update my-first-depl --config mydeploy.yaml
+# In the ssh session on my-vm, execute this command to create a CPU load, This Linux pipeline forces the CPU to work on compressing a continuous stream of random data
+dd if=/dev/urandom | gzip -9 >> /dev/null &
+# kill above cmd
+kill %1 
