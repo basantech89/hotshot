@@ -63,3 +63,4 @@ git clone https://github.com/tech89/reponame.git
 git remote add origin https://URL-of-repository	# To add repo from the server
 git remote set-url origin https://URL-of-repository	# To set the url for push and pull
 git push origin master
+git push --all	# push all branches to remote
