@@ -1,0 +1,25 @@
+# Removing a pkg without removing dependencies
+sudo pacman -R package-name
+
+# Remove the dependencies but leaving out the ones which are being used by some other application
+sudo pacman -Rs package-name
+
+# set screen brightness
+xbacklight -set 40
+
+# set audio
+sudo pacman -S alsa-utils
+amixer sset 'Master' 50%	# set to 50 %
+amixer -q sset Master 3%+	# increase by 3 %
+amixer -q sset Master 3%-	# decrease by 3 %
+amixer -q sset Master toggle	# mute / unmute
+
+# check terminal
+echo $TERM
+
+# changing default shell
+chsh -l
+chsh -s path-to-shell
+
+# copy a symbol from shell to clipboard (unicode chars gives u the corresponding symbol)
+echo -ne "\uf026" | xclip -selection clipboard

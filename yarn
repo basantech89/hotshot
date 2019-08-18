@@ -1,0 +1,11 @@
+yarn global <add/bin/list/remove/upgrade> --prefix
+
+# install create-react-app and make it available globally
+yarn global add create-react-app --prefix /usr/local
+
+yarn global bin # location of symlinks to installed executables
+
+# config the base location
+yarn config set prefix <filepath>
+
+yarn global dir # global installation folder that houses global node_modules

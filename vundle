@@ -1,0 +1,7 @@
+--> open vim
+:PluginInstall
+:PluginSearch colorscheme
+--> to install a plugin, move VIM cursor to the line and press i
+--> now copy the line and paste it in .vimrc
+:PluginList
+--> to delete a plugin, move cursor to the line and press <Shift> + <D>, then open .vimrc and remove the marked line for the deleted plugin
