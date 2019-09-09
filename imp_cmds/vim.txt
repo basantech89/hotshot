@@ -24,3 +24,6 @@ vim -p file1 file2				# open multiple files in tabs
 						  :tabs			-	list all the tabs
 						  :tabclose		-	close a single tab
 						  :tabonly		-	close all other tabs except current one
+
+# Search
+in cmd mode, press / or ? to search, n for next and N for previous occurrence
