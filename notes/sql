@@ -158,3 +158,44 @@ ADD [COLUMN] column_name_2 column_2_definition [FIRST|AFTER existing_column],
 
 ALTER TABLE vendors
 ADD COLUMN phone VARCHAR(15) AFTER name;
+
+
+# Create and Give permissions to a new user on a database
+CREATE USER 'mysql_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON database.table TO 'user'@'localhost';
+GRANT ALL PRIVILEGES ON database.* TO 'user'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
+GRANT SELECT, INSERT, DELETE ON database.* TO 'user'@'localhost';
+FLUSH PRIVILEGES;
+
+# DROP a User
+DROP USER 'user'@'localhost'
+
+
+# Backup SQL Database
+mysqldump database_name > database_name.sql
+mysqldump --databases database_one database_two > two_databases.sql
+mysqldump --all-databases > all_databases.sql
+
+# Restore SQL Database
+mysql database_name < database_name.sql
+mysql --one-database database_name < all_databases.sql
+
+
+# Calculate and show size of each databases in a table format
+SELECT table_schema AS "Database", 
+ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS "Size (MB)" 
+FROM information_schema.TABLES 
+GROUP BY table_schema;
+
+# Determine the sizes of all of the tables in a specific database
+SELECT table_name AS "Table",
+ROUND(((data_length + index_length) / 1024 / 1024), 2) AS "Size (MB)"
+FROM information_schema.TABLES
+WHERE table_schema = "database_name"
+ORDER BY (data_length + index_length) DESC;
+
+# Count no of rows in a database
+SELECT SUM(TABLE_ROWS) 
+     FROM INFORMATION_SCHEMA.TABLES 
+     WHERE TABLE_SCHEMA = 'your_db';
