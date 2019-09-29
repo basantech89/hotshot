@@ -28,3 +28,5 @@ find . -name '*.sh' -exec vim {} +	# use + character instead of \; if you want a
 					  use :n in vim to go to next file, :N for previous file, :buffers to list all the files being edited,
 					  :buffer 1 to go to 1st file, :buffer 2 to go to 2nd file, to open a new file file3 type :e file3 in vim,
 					  to edit the file3, type command :buffer file3
+grep text ./* -iR | grep -v -e node_modules -e "package*$json" -e yarn  # grep the text, then filter out the words node_modules and everything that start with package and end with json. -v is to filter out and -e is to specify words
+

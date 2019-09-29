@@ -1,2 +1,0 @@
-grep text ./* -iR | grep -v -e node_modules -e "package*$json" -e yarn                  # grep the text, then filter out the words node_modules and                                                                                             everything that start with package and end with json. -v                                                                                              is to filter out and -e is to specify words
-
