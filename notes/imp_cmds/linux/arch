@@ -23,3 +23,6 @@ chsh -s path-to-shell
 
 # copy a symbol from shell to clipboard (unicode chars gives u the corresponding symbol)
 echo -ne "\uf026" | xclip -selection clipboard
+
+# enable projector
+ xrandr --output LVDS1 --mode 1366x768
